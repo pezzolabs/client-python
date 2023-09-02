@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pezzo"
+version = "0.1.0"
+description = "Python client for Pezzo"
+license = "Apache-2.0"
+authors = ["Pezzo, Inc. <hello@pezzo.ai>"]
+homepage = "https://www.pezzo.ai"
+repository = "https://github.com/pezzolabs/client-python"
+readme="README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8.1"
+openai = "^0.27.0"
+
+[tool.poetry.scripts]
+prebuild = "pezzo.scripts.prebuild:main"
+
+[tool.poetry.group.dev.dependencies]
+toml = "^0.10.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
