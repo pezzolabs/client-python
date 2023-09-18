@@ -29,7 +29,10 @@ class ChatCompletion:
         managed_messages = []
 
         if pezzo_prompt:
-            managed_messages = [{'role': 'user', 'content': pezzo_prompt.content['prompt']}]
+            if pezzo_prompt.content.get('prompt'):
+                managed_messages = [{'role': 'user', 'content': pezzo_prompt.content['prompt']}]
+            if pezzo_prompt.content.get('messages'):
+                managed_messages = pezzo_prompt.content['messages']
 
         request_body = {
             'messages': managed_messages,
@@ -47,8 +50,8 @@ class ChatCompletion:
             'environment': self.pezzo.options.environment,
             'provider': 'OpenAI',
             'type': 'ChatCompletion',
-            "client": "pezzo-python",
-            "clientVersion": get_client_version(),
+            'client': 'pezzo-python',
+            'clientVersion': get_client_version(),
         }
 
         request_timestamp = get_timestamp()
@@ -56,7 +59,6 @@ class ChatCompletion:
 
         base_report = {
             'metadata': merged_metadata,
-            'properties': pezzo_options["properties"] if pezzo_options else None,
             'cacheEnabled': False,
             'cacheHit': None,
             'request': {
@@ -64,6 +66,9 @@ class ChatCompletion:
                 'body': request_body
             }
         }
+
+        if (pezzo_options and pezzo_options.get('properties')):
+            base_report['properties'] = pezzo_options['properties']
 
         if pezzo_options and pezzo_options.get('cache'):
             base_report['cacheEnabled'] = True
