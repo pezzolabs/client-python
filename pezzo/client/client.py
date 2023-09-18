@@ -1,4 +1,3 @@
-import json
 import requests
 from typing import Union, Dict, Any
 from .classes import Prompt
