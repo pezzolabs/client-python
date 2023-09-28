@@ -11,11 +11,13 @@ class Pezzo:
         url = f"{self.options.server_url}/api/prompts/v2/deployment"
         params = {
             "name": prompt_name,
-            "environmentName": self.options.environment
+            "environmentName": self.options.environment,
+            "projectId": self.options.project_id
         }
         headers = {
             "Content-Type": "application/json",
-            "x-pezzo-api-key": self.options.api_key
+            "x-pezzo-api-key": self.options.api_key,
+            "x-pezzo-project-id": self.options.project_id
         }
         response = requests.get(url, params=params, headers=headers)
         data = response.json()
